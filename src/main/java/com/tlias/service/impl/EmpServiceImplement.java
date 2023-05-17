@@ -9,21 +9,33 @@ import com.tlias.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class EmpServiceImplement implements EmpService {
-    @Autowired
-    private EmpMapper empMapper;
-    @Override
-    public PageBean<Emp> list(String name,Integer pageNo, Integer pageSize) {
+  @Autowired private EmpMapper empMapper;
 
-        PageHelper.startPage(pageNo,pageSize);
+  @Override
+  public PageBean<Emp> list(
+      String name,
+      Integer pageNo,
+      Integer pageSize,
+      Short gender,
+      LocalDate startTime,
+      LocalDate endTime) {
 
-        List<Emp> empList = empMapper.list(name);
-        Page<Emp> p = (Page<Emp>) empList;
+    PageHelper.startPage(pageNo, pageSize);
 
-        PageBean<Emp> empPageBean = new PageBean<Emp>(p.getTotal(),p.getResult());
-        return empPageBean;
-    }
+    List<Emp> empList = empMapper.list(name, gender, startTime, endTime);
+    Page<Emp> p = (Page<Emp>) empList;
+
+    PageBean<Emp> empPageBean = new PageBean<Emp>(p.getTotal(), p.getResult());
+    return empPageBean;
+  }
+
+  @Override
+  public void deleteEmp(List<Integer> ids) {
+    empMapper.deleteEmp(ids);
+  }
 }
