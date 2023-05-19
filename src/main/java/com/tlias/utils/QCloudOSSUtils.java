@@ -9,16 +9,21 @@ import com.qcloud.cos.exception.CosServiceException;
 import com.qcloud.cos.model.PutObjectRequest;
 import com.qcloud.cos.model.PutObjectResult;
 import com.qcloud.cos.region.Region;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class QCloudOSSUtils {
-    private static String secretId = "AKIDMXS7VcS1KL6ZlgKgmb9PO7Y7PRCgtpVu";
-    private static String secretKey = "8zauwhCSRActtc4KJ1SbT4ORDhuqWv3u";
-    private static String bucketName = "littlenine-1259672777";
-    private static String regionStr = "ap-nanjing"; // 区域北京则  beijing
+    @Value("${qcloud.oss.secretId}")
+    private static String secretId;
+    @Value("${qcloud.oss.secretKey}")
+    private static String secretKey ;
+    @Value("${qcloud.oss.bucketName}")
+    private static String bucketName;
+    @Value("${qcloud.oss.regionStr}")
+    private static String regionStr; // 区域北京则  beijing
 
     public static void main(String[] args) {
         List<String> list = new ArrayList<String>();
